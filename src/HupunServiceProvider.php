@@ -21,7 +21,7 @@ class HupunServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__.'/config/hupun.php' => config_path('hupun.php'),
+            __DIR__.'/../config/hupun.php' => config_path('hupun.php'),
         ]);
     }
 
@@ -32,7 +32,7 @@ class HupunServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__.'/config/hupun.php', config_path('hupun'));
+        $this->mergeConfigFrom(__DIR__.'/../config/hupun.php', config_path('hupun'));
 
         $this->app->singleton('hupun', function ($app) {
             return new HupunClient($app['config']['hupun']['api_key'], $app['config']['hupun']['api_serect'], $app['config']['hupun']['api_options']);
