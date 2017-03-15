@@ -1,7 +1,7 @@
 {
     "name": "xlstudio/laravel-hupun",
     "type": "library",
-    "description": "万里牛ERP开放接口为 Laravel 提供的 PHP SDK",
+    "description": "为 Laravel 提供的万里牛ERP开放接口的 PHP SDK",
     "keywords": ["laravel", "hupun", "wanliniu", "erp", "api", "sdk"],
     "homepage": "https://github.com/xlstudio/laravel-hupun",
     "license": "MIT",
