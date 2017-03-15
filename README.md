@@ -1,5 +1,5 @@
 # laravel-hupun
-万里牛ERP开放接口为 Laravel 提供的 PHP SDK
+为 Laravel 提供的万里牛ERP开放接口的 PHP SDK
 ## 安装方法
 ```shell
 composer require xlstudio/laravel-hupun dev-master
@@ -16,7 +16,7 @@ composer 安装或更新之后，把 HupunServiceProvider 添加到 `config/app.
 	'Hupun' => Xlstudio\Hupun\Facades\Hupun::class,
 ],
 ```
-通过运行下面命令把配置文件发布到项目里：
+通过运行下面命令把配置文件发布到项目配置里：
 ```bash
 php artisan vendor:publish --provider="Xlstudio\Hupun\HupunServiceProvider"
 ```
@@ -38,3 +38,4 @@ $params['sku_id'] = '111-1';
 
 var_dump(Hupun::execute('/inventories/erp/single', $params, 'get'));
 ```
+如有不明白的地方，请联系[QQ：2019809069]
