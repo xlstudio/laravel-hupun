@@ -13,7 +13,7 @@ composer 安装或更新之后，把 HupunServiceProvider 添加到 `config/app.
 如果你想使用 Facade 把下面的添加到 `config/app.php`:
 ```php
 'aliases' => [
-	'Hupun' => Xlstudio\Hupun\Facades\Hunpun::class,
+	'Hupun' => Xlstudio\Hupun\Facades\Hupun::class,
 ],
 ```
 通过运行下面命令把配置文件发布到项目里：
