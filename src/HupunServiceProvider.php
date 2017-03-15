@@ -7,14 +7,14 @@ use Illuminate\Support\ServiceProvider;
 class HupunServiceProvider extends ServiceProvider
 {
     /**
-    * 服务提供者加是否延迟加载.
+    * 服务提供者是否延迟加载.
     *
     * @var bool
     */
     protected $defer = true;
     
     /**
-    * 启动程序事件
+    * 启动程序服务.
     *
     * @return void
     */
@@ -28,7 +28,7 @@ class HupunServiceProvider extends ServiceProvider
     }
     
     /**
-    * 注册服务提供者
+    * 注册服务提供者.
     *
     * @return void
     */
