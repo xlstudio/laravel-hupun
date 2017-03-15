@@ -321,7 +321,7 @@ class HupunClient
             $this->logCommunicationError($request, $requestUrl, 'HTTP_RESPONSE_NOT_WELL_FORMED', $resp);
             $result = new \stdClass();
             $result->success = false;
-            $result->error_code = 0;
+            $result->error_code = '0';
             $result->error_msg = 'HTTP_RESPONSE_NOT_WELL_FORMED';
             return $result;
         }
