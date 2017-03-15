@@ -4,13 +4,13 @@
 ```shell
 composer require xlstudio/laravel-hupun dev-master
 ```
-composer 安装或更新之后，把 HupunServiceProvider 添加到 `app/config/app.php`
+composer 安装或更新之后，把 HupunServiceProvider 添加到 `config/app.php`
 ```php
 'providers' => [
 	Xlstudio\Hupun\HupunServiceProvider::class,
 ],
 ```
-如果你想使用 Facade 把下面的添加到 `app/config/app.php`:
+如果你想使用 Facade 把下面的添加到 `config/app.php`:
 ```php
 'aliases' => [
 	'Hupun' => Xlstudio\Hupun\Facades\Hunpun::class,
