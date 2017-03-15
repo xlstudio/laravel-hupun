@@ -11,7 +11,7 @@ class HupunServiceProvider extends ServiceProvider
     *
     * @var bool
     */
-    protected $defer = false;
+    protected $defer = true;
     
     /**
     * 启动程序事件

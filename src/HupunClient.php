@@ -4,20 +4,20 @@ namespace Xlstudio\Hupun;
 
 class HupunClient
 {
-    public $appkey;
+    protected $appkey;
     
-    public $secretKey;
+    protected $secretKey;
     
-    public $gatewayUrl = 'http://open.hupun.com/api';
+    protected $gatewayUrl = 'http://open.hupun.com/api';
     
-    public $format = 'json';
+    protected $format = 'json';
     
-    public $connectTimeout;
+    protected $connectTimeout;
     
-    public $readTimeout;
+    protected $readTimeout;
     
     /** 日志存放的工作目录**/
-    public $hupunSdkWorkDir = './data/';
+    protected $hupunSdkWorkDir = './data/';
     
     protected $signMethod = 'md5';
     
@@ -38,6 +38,31 @@ class HupunClient
                 $this->hupunSdkWorkDir = $options['api_work_dir'];
             }
         }
+    }
+
+    public function setGatewayUrl($gatewayUrl)
+    {
+        $this->gatewayUrl = $gatewayUrl;
+    }
+
+    public function setFormat($format)
+    {
+        $this->format = $format;
+    }
+
+    public function setConnectTimeout($connectTimeout)
+    {
+        $this->connectTimeout = $connectTimeout;
+    }
+
+    public function setReadTimeout($readTimeout)
+    {
+        $this->readTimeout = $readTimeout;
+    }
+
+    public function setHupunSdkWorkDir($hupunSdkWorkDir)
+    {
+        $this->hupunSdkWorkDir = $hupunSdkWorkDir;
     }
     
     protected function generateSign($params)
@@ -294,6 +319,7 @@ class HupunClient
         // 返回的HTTP文本不是标准JSON或者XML，记下错误日志
         if (false === $respWellFormed) {
             $this->logCommunicationError($request, $requestUrl, 'HTTP_RESPONSE_NOT_WELL_FORMED', $resp);
+            $result = new \stdClass();
             $result->success = false;
             $result->error_code = 0;
             $result->error_msg = 'HTTP_RESPONSE_NOT_WELL_FORMED';
@@ -312,7 +338,7 @@ class HupunClient
         return $respObject;
     }
     
-    private function getMillisecond()
+    public function getMillisecond()
     {
         list($t1, $t2) = explode(' ', microtime());
         return (int)sprintf('%.0f', (floatval($t1) + floatval($t2)) * 1000);
