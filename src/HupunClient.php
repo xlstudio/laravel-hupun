@@ -23,7 +23,7 @@ class HupunClient
     
     protected $apiVersion = 'v1';
     
-    protected $sdkVersion = 'hupun-openapi-php-sdk-20170315';
+    protected $sdkVersion = 'hupun-openapi-php-sdk-20170316';
     
     public function __construct($appkey = '', $secretKey = '', $options = [])
     {
@@ -140,11 +140,11 @@ class HupunClient
         $reponse = curl_exec($ch);
         
         if (curl_errno($ch)) {
-            throw new Exception(curl_error($ch), 0);
+            throw new \Exception(curl_error($ch), 0);
         } else {
             $httpStatusCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
             if (200 !== $httpStatusCode) {
-                throw new Exception($reponse, $httpStatusCode);
+                throw new \Exception($reponse, $httpStatusCode);
             }
         }
         
@@ -213,11 +213,11 @@ class HupunClient
         unset($data);
         
         if (curl_errno($ch)) {
-            throw new Exception(curl_error($ch), 0);
+            throw new \Exception(curl_error($ch), 0);
         } else {
             $httpStatusCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
             if (200 !== $httpStatusCode) {
-                throw new Exception($reponse, $httpStatusCode);
+                throw new \Exception($reponse, $httpStatusCode);
             }
         }
         
@@ -291,7 +291,7 @@ class HupunClient
             } else {
                 $resp = $this->curl($requestUrl, $apiParams);
             }
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->logCommunicationError($request, $requestUrl, 'HTTP_ERROR_' . $e->getCode(), $e->getMessage());
             $result->success = false;
             $result->error_code = $e->getCode();
