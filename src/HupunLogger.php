@@ -8,9 +8,9 @@ class HupunLogger
         'separator' => "\t",
         'log_file' => ''
     ];
-    
+
     private $fileHandle;
-    
+
     protected function getFileHandle()
     {
         if (null === $this->fileHandle) {
@@ -25,7 +25,7 @@ class HupunLogger
         }
         return $this->fileHandle;
     }
-    
+
     public function log($logData)
     {
         if (empty($logData)) {
@@ -36,5 +36,5 @@ class HupunLogger
         }
         $logData = $logData. "\n";
         fwrite($this->getFileHandle(), $logData);
-    }    
+    }
 }

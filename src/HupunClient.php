@@ -18,13 +18,13 @@ class HupunClient
     
     /** 日志存放的工作目录**/
     protected $hupunSdkWorkDir = './data/';
-    
+
     protected $signMethod = 'md5';
-    
+
     protected $apiVersion = 'v1';
-    
-    protected $sdkVersion = 'hupun-openapi-php-sdk-20170316';
-    
+
+    protected $sdkVersion = 'hupun-openapi-php-sdk-20170327';
+
     public function __construct($appkey = '', $secretKey = '', $options = [])
     {
         $this->appkey = $appkey;
@@ -68,7 +68,7 @@ class HupunClient
     protected function generateSign($params)
     {
         ksort($params);
-        
+
         $stringToBeSigned = $this->secretKey;
         foreach ($params as $k => $v) {
             if ('@' != substr($v, 0, 1)) {
@@ -77,10 +77,10 @@ class HupunClient
         }
         unset($k, $v);
         $stringToBeSigned .= $this->secretKey;
-        
+
         return strtoupper(md5($stringToBeSigned));
     }
-    
+
     public function curl($url, $postFields = null)
     {
         $ch = curl_init();
@@ -99,11 +99,11 @@ class HupunClient
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
             curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
         }
-        
+
         if (null != $postFields && is_array($postFields) && 0 < count($postFields)) {
             $postBodyString = '';
             $postMultipart = false;
-            
+
             foreach ($postFields as $k => $v) {
                 if (!is_string($v)) {
                     continue;
@@ -118,9 +118,9 @@ class HupunClient
                 }
             }
             unset($k, $v);
-            
+
             curl_setopt($ch, CURLOPT_POST, true);
-            
+
             if ($postMultipart) {
                 if (class_exists('\CURLFile')) {
                     curl_setopt($ch, CURLOPT_SAFE_UPLOAD, true);
@@ -136,9 +136,9 @@ class HupunClient
                 curl_setopt($ch, CURLOPT_POSTFIELDS, substr($postBodyString, 0, -1));
             }
         }
-        
+
         $reponse = curl_exec($ch);
-        
+
         if (curl_errno($ch)) {
             throw new \Exception(curl_error($ch), 0);
         } else {
@@ -147,7 +147,7 @@ class HupunClient
                 throw new \Exception($reponse, $httpStatusCode);
             }
         }
-        
+
         curl_close($ch);
         return $reponse;
     }
@@ -169,13 +169,13 @@ class HupunClient
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
             curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
         }
-        
+
         // 生成分隔符
         $delimiter = '-------------' . uniqid();
-        
+
         // 先将post的普通数据生成主体字符串
         $data = '';
-        
+
         if (null != $postFields) {
             foreach ($postFields as $name => $content) {
                 $data .= '--' . $delimiter . "\r\n";
@@ -185,22 +185,22 @@ class HupunClient
             }
             unset($name, $content);
         }
-        
+
         // 将上传的文件生成主体字符串
         if (null != $fileFields) {
             foreach ($fileFields as $name => $file) {
                 $data .= '--' . $delimiter . "\r\n";
                 $data .= 'Content-Disposition: form-data; name="' . $name . '"; filename="' . $file['name'] . "\" \r\n";
                 $data .= 'Content-Type: ' . $file['type'] . "\r\n\r\n";//多了个文档类型
-                
+
                 $data .= $file['content'] . "\r\n";
             }
             unset($name, $file);
         }
-        
+
         // 主体结束的分隔符
         $data .= '--' . $delimiter . '--';
-        
+
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
             'Content-Type: multipart/form-data; boundary=' . $delimiter,
@@ -208,10 +208,10 @@ class HupunClient
         ]);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-        
+
         $reponse = curl_exec($ch);
         unset($data);
-        
+
         if (curl_errno($ch)) {
             throw new \Exception(curl_error($ch), 0);
         } else {
@@ -220,11 +220,11 @@ class HupunClient
                 throw new \Exception($reponse, $httpStatusCode);
             }
         }
-        
+
         curl_close($ch);
         return $reponse;
     }
-    
+
     protected function logCommunicationError($request, $requestUrl, $errorCode, $responseTxt)
     {
         $localIp = isset($_SERVER['SERVER_ADDR']) ? $_SERVER['SERVER_ADDR'] : 'CLI';
@@ -250,10 +250,10 @@ class HupunClient
         $sysParams['app_key'] = $this->appkey;
         $sysParams['format'] = $this->format;
         $sysParams['timestamp'] = $this->getMillisecond();
-        
+
         $apiParams = [];
         $apiParams = $params;
-        
+
         // 系统参数放入GET请求串
         if ($bestUrl) {
             $requestUrl = $bestUrl.'/'.$this->apiVersion.$request.'?';
@@ -262,12 +262,12 @@ class HupunClient
         }
         // 签名
         $sysParams['sign'] = $this->generateSign(array_merge($apiParams, $sysParams));
-        
+
         foreach ($sysParams as $sysParamKey => $sysParamValue) {
             // if(strcmp($sysParamKey,'timestamp') != 0)
             $requestUrl .= "$sysParamKey=" . urlencode($sysParamValue) . '&';
         }
-        
+
         $fileFields = [];
         foreach ($apiParams as $key => $value) {
             if (is_array($value) && isset($value['type']) && isset($value['content'])) {
@@ -278,10 +278,10 @@ class HupunClient
                 $requestUrl .= "$key=" . urlencode($value) . '&';
             }
         }
-        
+
         // $requestUrl .= 'timestamp=' . urlencode($sysParams['timestamp']) . '&';
         $requestUrl = substr($requestUrl, 0, -1);
-        
+
         // 发起HTTP请求
         try {
             if (count($fileFields) > 0) {
@@ -298,10 +298,10 @@ class HupunClient
             $result->error_msg = $e->getMessage();
             return $result;
         }
-        
+
         unset($apiParams);
         unset($fileFields);
-        
+
         // 解析HUPUN返回结果
         $respWellFormed = false;
         if ('json' == $this->format) {
@@ -315,7 +315,7 @@ class HupunClient
                 $respWellFormed = true;
             }
         }
-        
+
         // 返回的HTTP文本不是标准JSON或者XML，记下错误日志
         if (false === $respWellFormed) {
             $this->logCommunicationError($request, $requestUrl, 'HTTP_RESPONSE_NOT_WELL_FORMED', $resp);
@@ -325,7 +325,7 @@ class HupunClient
             $result->error_msg = 'HTTP_RESPONSE_NOT_WELL_FORMED';
             return $result;
         }
-        
+
         // 如果HUPUN返回了错误码，记录到业务错误日志中
         if ($respObject->error_code) {
             $logger = new HupunLogger;
@@ -337,10 +337,10 @@ class HupunClient
         }
         return $respObject;
     }
-    
+
     public function getMillisecond()
     {
         list($t1, $t2) = explode(' ', microtime());
         return sprintf('%.0f', (floatval($t1) + floatval($t2)) * 1000);
-    }    
+    }
 }
