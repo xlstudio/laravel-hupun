@@ -23,9 +23,15 @@ php artisan vendor:publish --provider="Xlstudio\Hupun\HupunServiceProvider"
 ## 使用方法
 在 `.env` 添加配置项：
 ```php
+HUPUN_TEST_ENV = true //是否为测试环境
+
+TEST_HUPUN_API_KEY = 填写你申请的appKey
+TEST_HUPUN_API_SERECT = 填写你申请的appSecret
+TEST_HUPUN_API_URL = http://103.235.242.21/open/api
+
 HUPUN_API_KEY = 填写你申请的appKey
 HUPUN_API_SERECT = 填写你申请的appSecret
-HUPUN_API_URL = 填写测试环境接口地址 //正式环境可以去掉该项配置，也可以直接添加正式环境接口地址
+HUPUN_API_URL = http://open.hupun.com/api //正式环境可以去掉该项配置，也可以直接添加正式环境接口地址
 ```
 单笔查询库存的接口
 ```php
