@@ -1,14 +1,30 @@
 <?php
+if (env('HUPUN_TEST_ENV')) {
+    return [
 
-return [
+        'api_key' => env('TEST_HUPUN_API_KEY'),
 
-    'api_key' => env('HUPUN_API_KEY'),
+        'api_serect' => env('TEST_HUPUN_API_SERECT'),
 
-    'api_serect' => env('HUPUN_API_SERECT'),
+        'api_options' => [
+            'api_url' => env('TEST_HUPUN_API_URL'),
+            'api_work_dir' => storage_path('app/hupun/data'),
+        ],
 
-    'api_options' => [
-        'api_url' => env('HUPUN_API_URL'),
-        'api_work_dir' => storage_path('app/hupun/data'),
-    ],
+    ];
 
-];
+
+} else {
+    return [
+
+        'api_key' => env('HUPUN_API_KEY'),
+
+        'api_serect' => env('HUPUN_API_SERECT'),
+
+        'api_options' => [
+            'api_url' => env('HUPUN_API_URL'),
+            'api_work_dir' => storage_path('app/hupun/data'),
+        ],
+
+    ];
+}
