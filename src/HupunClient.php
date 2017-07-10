@@ -151,6 +151,7 @@ class HupunClient
         curl_close($ch);
         return $reponse;
     }
+
     public function curl_with_memory_file($url, $postFields = null, $fileFields = null)
     {
         $ch = curl_init();
@@ -244,6 +245,7 @@ class HupunClient
         ];
         $logger->log($logData);
     }
+
     public function execute($request, $params, $method = 'post', $bestUrl = null)
     {
         // 组装系统参数
@@ -256,9 +258,9 @@ class HupunClient
 
         // 系统参数放入GET请求串
         if ($bestUrl) {
-            $requestUrl = $bestUrl.'/'.$this->apiVersion.$request.'?';
+            $requestUrl = $bestUrl . '/' . $this->apiVersion . $request . '?';
         } else {
-            $requestUrl = $this->gatewayUrl.'/'.$this->apiVersion.$request.'?';
+            $requestUrl = $this->gatewayUrl . '/' . $this->apiVersion . $request . '?';
         }
         // 签名
         $sysParams['sign'] = $this->generateSign(array_merge($apiParams, $sysParams));
@@ -333,9 +335,13 @@ class HupunClient
             $logger->conf['log_file'] = rtrim($this->hupunSdkWorkDir, '\\/') . '/' . 'logs/hupun_biz_err_' . $this->appkey . '_' . date('Y-m-d') . '.log';
             $logger->log([
                 date('Y-m-d H:i:s'),
+                $request,
+                json_encode($params),
+                $requestUrl,
                 $resp
             ]);
         }
+
         return $respObject;
     }
 
