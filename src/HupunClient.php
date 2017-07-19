@@ -93,7 +93,7 @@ class HupunClient
         if ($this->connectTimeout) {
             curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $this->connectTimeout);
         }
-        curl_setopt ( $ch, CURLOPT_USERAGENT, 'hupun-openapi-php-sdk');
+        curl_setopt($ch, CURLOPT_USERAGENT, 'hupun-openapi-php-sdk');
         // https 请求
         if (strlen($url) > 5 && strtolower(substr($url, 0, 5)) == 'https') {
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
