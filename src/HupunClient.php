@@ -16,14 +16,14 @@ class HupunClient
     
     protected $readTimeout;
     
-    /** 日志存放的工作目录**/
+    // 日志存放的工作目录
     protected $hupunSdkWorkDir = './data/';
 
     protected $signMethod = 'md5';
 
     protected $apiVersion = 'v1';
 
-    protected $sdkVersion = 'hupun-openapi-php-sdk-20170327';
+    protected $sdkVersion = 'hupun-openapi-php-sdk-20170719';
 
     public function __construct($appkey = '', $secretKey = '', $options = [])
     {
@@ -110,7 +110,7 @@ class HupunClient
                 }
                 if ('@' != substr($v, 0, 1)) {// 判断是不是文件上传
                     $postBodyString .= "$k=" . urlencode($v) . '&';
-                } else {// 文件上传用multipart/form-data，否则用www-form-urlencoded
+                } else {// 文件上传用 multipart/form-data，否则用 www-form-urlencoded
                     $postMultipart = true;
                     if (class_exists('\CURLFile')) {
                         $postFields[$k] = new \CURLFile(substr($v, 1));
@@ -174,14 +174,14 @@ class HupunClient
         // 生成分隔符
         $delimiter = '-------------' . uniqid();
 
-        // 先将post的普通数据生成主体字符串
+        // 先将 post 的普通数据生成主体字符串
         $data = '';
 
         if (null != $postFields) {
             foreach ($postFields as $name => $content) {
                 $data .= '--' . $delimiter . "\r\n";
                 $data .= 'Content-Disposition: form-data; name="' . $name . '"';
-                // multipart/form-data 不需要urlencode，参见 http:stackoverflow.com/questions/6603928/should-i-url-encode-post-data
+                // multipart/form-data 不需要 urlencode，参见 http://stackoverflow.com/questions/6603928/should-i-url-encode-post-data
                 $data .= "\r\n\r\n" . $content . "\r\n";
             }
             unset($name, $content);
@@ -192,7 +192,7 @@ class HupunClient
             foreach ($fileFields as $name => $file) {
                 $data .= '--' . $delimiter . "\r\n";
                 $data .= 'Content-Disposition: form-data; name="' . $name . '"; filename="' . $file['name'] . "\" \r\n";
-                $data .= 'Content-Type: ' . $file['type'] . "\r\n\r\n";//多了个文档类型
+                $data .= 'Content-Type: ' . $file['type'] . "\r\n\r\n";// 多了个文档类型
 
                 $data .= $file['content'] . "\r\n";
             }
