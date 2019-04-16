@@ -5,13 +5,13 @@ namespace Xlstudio\Hupun\Facades;
 use Illuminate\Support\Facades\Facade;
 
 /**
-* @see \Xlstudio\Hupun
-*/
+ * @see \Xlstudio\Hupun
+ */
 class Hupun extends Facade
 {
     /**
-    * @return string
-    */
+     * @return string
+     */
     protected static function getFacadeAccessor()
     {
         return 'hupun';

@@ -27,11 +27,11 @@ HUPUN_TEST_ENV = true // 是否为测试环境(正式环境:false,测试环境:t
 // 测试环境配置
 HUPUN_TEST_API_KEY = 填写你申请的appKey
 HUPUN_TEST_API_SERECT = 填写你申请的appSecret
-HUPUN_TEST_API_URL = http://103.237.6.86/open/api
+HUPUN_TEST_API_URL = http://114.67.231.99/open/api
 // 正式环境配置
 HUPUN_API_KEY = 填写你申请的appKey
 HUPUN_API_SERECT = 填写你申请的appSecret
-HUPUN_API_URL = http://open.hupun.com/api
+HUPUN_API_URL = https://erp-open.hupun.com/api
 ```
 单笔查询库存的接口
 ```php
