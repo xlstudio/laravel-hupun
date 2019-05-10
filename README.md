@@ -44,4 +44,7 @@ $params['sku_id'] = '111-1';
 
 var_dump(Hupun::execute('/inventories/erp/single', $params, 'get'));
 ```
+如果你是使用其他框架或者原生编写的，可以参考使用：
+> https://github.com/xlstudio/hupun
+
 如有不明白的地方，请联系[QQ：2019809069]
