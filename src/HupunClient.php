@@ -99,6 +99,7 @@ class HupunClient
             curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $this->connectTimeout);
         }
         curl_setopt($ch, CURLOPT_USERAGENT, 'hupun-openapi-php-sdk');
+
         // HTTPS 请求
         if (strlen($url) > 5 && 'https' == strtolower(substr($url, 0, 5))) {
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
@@ -274,10 +275,12 @@ class HupunClient
             $sysParams['_sign'] = $this->generateSign(array_merge($sysParams, $apiParams), true);
         } else {
             $requestMethod = $this->apiVersion . $request;
+
             // 组装系统参数
             $sysParams['app_key'] = $this->appKey;
             $sysParams['format'] = $this->format;
             $sysParams['timestamp'] = $this->getMillisecond();
+
             // 签名
             $sysParams['sign'] = $this->generateSign(array_merge($sysParams, $apiParams));
         }
@@ -351,10 +354,10 @@ class HupunClient
         } elseif ('xml' == $this->format) {
             $boolPreviousValue = libxml_disable_entity_loader(true);
             $respObject = @simplexml_load_string($resp);
-            libxml_disable_entity_loader($boolPreviousValue);
             if (false !== $respObject) {
                 $respWellFormed = true;
             }
+            libxml_disable_entity_loader($boolPreviousValue);
         }
 
         // 返回的 HTTP 文本不是标准 JSON 或者 XML，记下错误日志
