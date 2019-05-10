@@ -15,8 +15,6 @@ class HupunServiceProvider extends ServiceProvider
 
     /**
      * 启动程序服务.
-     *
-     * @return void
      */
     public function boot()
     {
@@ -29,8 +27,6 @@ class HupunServiceProvider extends ServiceProvider
 
     /**
      * 注册服务提供者.
-     *
-     * @return void
      */
     public function register()
     {
