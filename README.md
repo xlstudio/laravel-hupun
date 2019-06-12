@@ -2,7 +2,7 @@
 为 Laravel 提供的万里牛ERP开放接口的 PHP SDK
 ## 安装方法
 ```shell
-composer require xlstudio/laravel-hupun dev-master
+composer require xlstudio/laravel-hupun
 ```
 composer 安装或更新之后，把 HupunServiceProvider 添加到 `config/app.php`
 ```php
