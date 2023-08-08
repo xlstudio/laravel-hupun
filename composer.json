@@ -14,11 +14,28 @@
     "require": {
         "php": ">=5.5.9",
         "ext-curl": "*",
-        "illuminate/container": ">=5.1.1"
+        "illuminate/container": ">=5.1.1",
+        "xlstudio/hupun": "^1.1"
+
     },
     "autoload": {
+        "files": [
+            "src/function.php"
+        ],
         "psr-4": {
-            "Xlstudio\\Hupun\\": "src"
+            "Xlstudio\\Hupun\\Facades\\": "src/Facades/",
+            "Xlstudio\\Hupun\\Providers\\": "src/Providers/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Xlstudio\\Hupun\\Providers\\HupunServiceProvider"
+            ],
+            "aliases": {
+                "Hupun": "Xlstudio\\Hupun\\Facades\\Hupun",
+	            "HupunOpen": "Xlstudio\\Hupun\\Facades\\HupunOpen"
+            }
         }
     },
     "minimum-stability": "dev"
