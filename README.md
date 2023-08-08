@@ -1,11 +1,13 @@
-# laravel-hupun
+# laravel-hupun (20230808)
 
 为 Laravel 提供的万里牛 ERP 开放接口能力的 PHP SDK
+
 ## 安装方法
 
 ```shell
 composer require xlstudio/laravel-hupun
 ```
+
 ### 注意：以下配置是 Laravel 5.5 以下版本的配置，5.5 以上的版本(包括 5.5)无需配置直接看第 3 条
 
 1. composer 安装或更新之后，把 HupunServiceProvider 添加到 `config/app.php`
@@ -34,6 +36,7 @@ php artisan vendor:publish --provider="Xlstudio\Hupun\Providers\HupunServiceProv
 ```
 
 ## 使用方法
+
 在 `.env` 文件里添加以下配置项：
 
 ```shell
@@ -121,6 +124,7 @@ $result = hupun('b2c')->execute('inventories/erp/single', $params, 'get');
 var_dump($result);
 
 ```
+
 如果你是使用其他框架或者原生编写的，可以参考使用：
 > https://github.com/xlstudio/hupun
 
