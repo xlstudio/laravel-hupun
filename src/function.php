@@ -1,7 +1,8 @@
 <?php
 
-if (!function_exists('hupun')) {
-    function hupun($ApiType) {
+if (! function_exists('hupun')) {
+    function hupun($ApiType)
+    {
         if ($ApiType == 'b2c') {
             return app('hupun');
         } elseif ($ApiType == 'open') {
@@ -9,6 +10,5 @@ if (!function_exists('hupun')) {
         } else {
             throw new Exception('hupun api type error');
         }
-
     }
 }

@@ -1,4 +1,4 @@
-# laravel-hupun (20230808)
+# laravel-hupun (20230820)
 
 为 Laravel 提供的万里牛 ERP 开放接口能力的 PHP SDK
 
